@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoCo
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-
+import org.springframework.context.annotation.ComponentScan;
 /**
  *
  * @author Diego
