@@ -7,20 +7,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
-/**
- *
- * @author Diego
- */
+import org.springframework.data.mongodb.repository.config.*;
+
+@SpringBootApplication
 @ComponentScan(basePackages = "controllers")
-//@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class,MongoDataAutoConfiguration.class,MongoRepositoriesAutoConfiguration.class})
 @EnableAutoConfiguration
+@EnableMongoRepositories({"repositories"})
 public class Application extends SpringBootServletInitializer {
 
-    /**
-     *  
-     * @param application
-     * @return
-     */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);
