@@ -12,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Diego
  */
 @ComponentScan(basePackages = "controllers")
-@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class,MongoDataAutoConfiguration.class,MongoRepositoriesAutoConfiguration.class})
-
+//@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class,MongoDataAutoConfiguration.class,MongoRepositoriesAutoConfiguration.class})
+@EnableAutoConfiguration
 public class Application extends SpringBootServletInitializer {
 
     /**
