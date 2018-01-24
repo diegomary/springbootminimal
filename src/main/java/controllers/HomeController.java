@@ -14,6 +14,9 @@ import models.Customer;
 import models.Flower;
 import repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import repositories.FlowerRepository;
 //@RestController
 @Controller
@@ -59,17 +62,45 @@ private static final String appName = "ThymeleafTour";
      
      @RequestMapping("/api/test")
         public @ResponseBody  
-        List<Customer> firstTest() {
-        return this.repository.findAll(); 
-    }
+        List<Customer> firstTest() {            
+        return this.repository.findAll();
+        }        
         
-        
-        @RequestMapping("/api/flute")
+        @RequestMapping("/api/single")
         public @ResponseBody  
-        List<Flower> firstTest1() {
-        return this.flowerRepository.findAll(); 
+        Flower firstTest1() {     
+        return this.flowerRepository.findByName("Pine"); 
     }    
-    
+        
+        @RequestMapping("/api/all")
+        public @ResponseBody  
+        List<Flower> firstTest2() { 
+        List<Flower> result = this.flowerRepository.findAll(new Sort(Sort.Direction.DESC,"Name")); // Sort z -> a by name      
+        result.forEach(item->{
+            item.setImagePath(item.getImagePath().replaceAll("http://dmm888.com/Images/Flowers/",
+            "https://nodehelperstatic-statichelper.7e14.starter-us-west-2.openshiftapps.com/Flowers/"));            
+        });
+        return result;
+    } 
+        
+        @RequestMapping("/api/one")
+        public @ResponseBody  
+        Flower firstTest3() { 
+        Flower result = this.flowerRepository.findOne("59209a15156ba626f4b2d3b2");
+        return result;
+    } 
+        
+      @RequestMapping("/api/nullnotes")
+        public @ResponseBody  
+        List<Flower> firstTest4() { 
+        return  this.flowerRepository.findByNotesIsNullQuery();        
+    } 
+        
+        @RequestMapping("/api/notnullnotes")
+        public @ResponseBody  
+        List<Flower> firstTest5() { 
+        return  this.flowerRepository.findByNotesIsNotNullQuery();        
+    } 
 
 
     @RequestMapping("/api/flowers")

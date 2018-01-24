@@ -7,32 +7,35 @@ import java.math.BigInteger;
 
 @Document(collection = "BachFlowers")
 public class Flower {      
-      
-    @Id private String Id; 
-    
+    @Id private String id;    
     @Field("Name")
-    private String Name;
+    private String name;
     @Field("Description")
-    private String Description;
+    private String description;
     @Field("ImagePath")
     private String ImagePath;
     @Field("FlowerColor")
     private String FlowerColor;
+    @Field("Notes")
+    private String notes;
 
-    public String getId(){return this.Id;}    
-    public void setId(String _id) { this.Id = _id;}         
+    public String getId(){return this.id;}    
+    public void setId(String _id) { this.id = _id;}         
     
-    public String getName(){return this.Name;}    
-    public void setName(String _firstName) { this.Name = _firstName;}
+    public String getName(){return this.name;}    
+    public void setName(String _firstName) { this.name = _firstName;}
 
-    public String getDescription(){return this.Description;}    
-    public void setDescription(String _description){this.Description = _description;}
+    public String getDescription(){return this.description;}    
+    public void setDescription(String _description){this.description = _description;}
 
     public String getImagePath(){return this.ImagePath;}    
     public void setImagePath(String _imagePath){this.ImagePath = _imagePath;}
     
     public String getFlowerColor(){return this.FlowerColor;}    
-    public void setFlowerColor(String _flowerColor){this.FlowerColor = _flowerColor;}  
+    public void setFlowerColor(String _flowerColor){this.FlowerColor = _flowerColor;}
+    
+    public String getNotes(){return this.notes;}    
+    public void setNotes(String _notes){this.FlowerColor = _notes;} 
     
 }
 
