@@ -5,7 +5,9 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.*;
@@ -30,11 +32,32 @@ private FlowerRepository flowerRepository;
 private static final String appName = "ThymeleafTour";
      @GetMapping("/")
      public String home(Model model,@RequestParam(value = "name", required = false,
-                        defaultValue = "Diego and Mary") String name) {
+                        defaultValue = "Diego and Mary") String name,HttpSession httpSession) {
+       
+        List<String> AAskills = new ArrayList<String>();
+        AAskills.add("Angular 5");
+        AAskills.add("React 16");
+        AAskills.add("Mean stack");
+        Customer AA = new Customer("Alice", "Smith","al@dm.com",AAskills);        
+        httpSession.setAttribute("SessionValue",AA );         
         model.addAttribute("name", name);
         model.addAttribute("title", appName);
         return "home";
     }
+     
+     
+      @RequestMapping("/getsession")
+        public @ResponseBody  
+        Object getsession(HttpSession httpSession) {     
+        return httpSession.getAttribute("SessionValue");
+    }    
+     
+     
+     
+     
+     
+     
+     
 
  @GetMapping("/test")
      public String test(Model model,
@@ -79,7 +102,7 @@ private static final String appName = "ThymeleafTour";
         result.forEach(item->{
             item.setImagePath(item.getImagePath().replaceAll("http://dmm888.com/Images/Flowers/",
             "https://nodehelperstatic-statichelper.7e14.starter-us-west-2.openshiftapps.com/Flowers/"));            
-        });
+        });       
         return result;
     } 
         
