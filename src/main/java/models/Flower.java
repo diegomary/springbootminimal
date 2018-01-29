@@ -1,4 +1,5 @@
 package models;
+import java.io.Serializable;
 import java.math.BigInteger;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -6,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.math.BigInteger;
 
 @Document(collection = "BachFlowers")
-public class Flower {      
+public class Flower implements Serializable{      
     @Id private String id;    
     @Field("Name")
     private String name;

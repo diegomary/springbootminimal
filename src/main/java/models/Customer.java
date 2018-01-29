@@ -1,12 +1,13 @@
 package models;
 
+import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 import java.util.ArrayList;
 
 @Document(collection = "customers")
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
     private String id;
@@ -38,8 +39,6 @@ public class Customer {
 
     public List<String> getSkills(){return this.skills;}    
     public void setSkills(List<String> _skills){this.skills = _skills;}
-
-
 
     @Override
     public String toString() {

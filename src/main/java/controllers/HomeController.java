@@ -5,8 +5,8 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +17,6 @@ import models.Flower;
 import repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import repositories.FlowerRepository;
 //@RestController
 @Controller
@@ -34,7 +32,7 @@ private static final String appName = "ThymeleafTour";
      public String home(Model model,@RequestParam(value = "name", required = false,
                         defaultValue = "Diego and Mary") String name,HttpSession httpSession) {
        
-        List<String> AAskills = new ArrayList<String>();
+        List<String> AAskills = new ArrayList<>();
         AAskills.add("Angular 5");
         AAskills.add("React 16");
         AAskills.add("Mean stack");
@@ -44,28 +42,25 @@ private static final String appName = "ThymeleafTour";
         model.addAttribute("title", appName);
         return "home";
     }
+      
      
-     
-      @RequestMapping("/getsession")
+      @RequestMapping("/uid")
         public @ResponseBody  
-        Object getsession(HttpSession httpSession) {     
-        return httpSession.getAttribute("SessionValue");
-    }    
-     
-     
-     
-     
-     
-     
-     
+        String uid(HttpSession session) {          
+		UUID uid = (UUID) session.getAttribute("uid");
+		if (uid == null) {
+			uid = UUID.randomUUID();
+		}
+		session.setAttribute("uid", uid);
+		return uid.toString();
+	}
 
  @GetMapping("/test")
      public String test(Model model,
                        @RequestParam(value = "name", required = false,
                                defaultValue = "Diego and Mary") String name) {       
-        this.repository.deleteAll();
-        
-        List<String> AAskills = new ArrayList<String>();
+        this.repository.deleteAll();        
+        List<String> AAskills = new ArrayList<>();
         AAskills.add("Angular 5");
         AAskills.add("React 16");
         AAskills.add("Mean stack");
@@ -93,7 +88,8 @@ private static final String appName = "ThymeleafTour";
         public @ResponseBody  
         Flower firstTest1() {     
         return this.flowerRepository.findByName("Pine"); 
-    }    
+    }   
+        
         
         @RequestMapping("/api/all")
         public @ResponseBody  

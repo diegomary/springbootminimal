@@ -1,7 +1,10 @@
+package models;
+
+import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "resumes")
-public class Resume {
+public class Resume implements Serializable {
 
     @Id
     private String id;
